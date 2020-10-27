@@ -4,7 +4,7 @@ public class Student {
     int age, groupNumber, countTasksDone, countModulesDone;
     static int sumTaskDone;
     static  int maxModulesStudents;
-
+    public static final int MAX_MODULE_COUNT = 20;
 
 
     public Student(String name, String fam, int age) {
@@ -24,9 +24,18 @@ public class Student {
         this.countModulesDone = countModulesDone;
     }
 
+   public static void getMaxModulesStudent(){
 
-    public static int getSumTaskDone() {
-        return sumTaskDone;
+
+
+   }
+
+    public void passModule() {
+        if (countModulesDone < MAX_MODULE_COUNT) {
+            countModulesDone++; //поле хранит информацию о том, сколько модулей прошёл студент      System.out.println("Модуль пройден");
+        } else {
+            System.out.println("Все модули пройдены!");
+        }
     }
 
     public  void taskDone(boolean statusTask){
@@ -34,6 +43,22 @@ public class Student {
         if(statusTask == true){
             sumTaskDone +=1;
         }
+
+    }
+
+
+    public static int getSumTaskDone(){
+
+        return sumTaskDone;
+
+
+    }
+
+
+
+    public static int getMaxModelesDone(){
+
+        return maxModulesStudents;
 
     }
 
@@ -100,5 +125,8 @@ public class Student {
 
     public void setCountModulesDone(int countModulesDone) {
         this.countModulesDone = countModulesDone;
+        if ( countModulesDone > maxModulesStudents ){
+            maxModulesStudents = countModulesDone;
+        }
     }
 }
