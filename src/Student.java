@@ -1,114 +1,71 @@
-public class Student {
-    String name, fam, target;
-    boolean stage;
-    int age, groupNumber, countTasksDone, countModulesDone;
-    static int sumTaskDone;
-    static  int maxModulesStudents;
-    public static final int MAX_MODULE_COUNT = 20;
+import java.util.Objects;
 
+public class Student extends Person {
 
-    public Student(String name, String fam, int age) {
-        this(name, fam, age, "Java Developer", false, 0, 0,0);
+    int countTasksDone; // Количество решенных задач
+    static int countTaskDoneAllStudents; // Количество решенных задач всеми студентами
+    Mentor mentor; // Ментор
+    boolean checkTaskAllDone; // Флаг, что студент решил все задания
+
+    public Student(String name, String surname, int age, Mentor mentor, boolean checkTaskAllDone) {
+        super(name, surname, age);
+        this.countTasksDone = 0;
+        this.mentor = mentor;
+        this.checkTaskAllDone = checkTaskAllDone;
 
     }
 
+    //Метод  Решить задачи
+    public void solveTasks(int countTask, Task[] tasks) {
 
-    public Student(String name, String fam, int age, String target, boolean stage,  int groupNumber, int countTasksDone, int countModulesDone) {
-        this.name = name;
-        this.fam = fam;
-        this.target = target;
-        this.stage = stage;
-        this.age = age;
-        this.groupNumber = groupNumber;
-        this.countTasksDone = countTasksDone;
-        this.countModulesDone = countModulesDone;
+        // Задаем цикл с колчиством задач студенту, сколько он должен решить
+        for (int i = countTasksDone; i < countTask; i++) {
+
+            solveTask(tasks[i]); // Вызываем метод решения задачи
+            // Если количество задач устанавливается равным решеных задач,
+            // устанавливаем флаг checkTaskAllDone в true, bначе false
+            if (i == countTasksDone -1) {
+                checkTaskAllDone = true;
+                //System.out.println("Студент " + getName() + " решил задание " + tasks[i].number);
+                System.out.println("Студент " + getName() + " решил задание " + tasks[i].number);
+            } else {
+                checkTaskAllDone = false;
+                //System.out.println("Студент " + getName() + " решил не все задания");
+            }
+
+        }
+
+        // Если checkTaskAllDone то значит все задачи решены
+        if(checkTaskAllDone){
+            System.out.println("Студент " + getName() + " решил  все задания");
+
+        }else {
+
+            System.out.println("Студент " + getName() + " решил не все задания");
+        }
+        //System.out.println(countTasksDone);
+
     }
 
-   public static void getMaxModulesStudent(){
+    // Решить задачу
+    private void solveTask(Task task) {
 
-
-
-   }
-
-    public void passModule() {
-        if (countModulesDone < MAX_MODULE_COUNT) {
-            countModulesDone++; //поле хранит информацию о том, сколько модулей прошёл студент      System.out.println("Модуль пройден");
+        if (task instanceof Autochecked) {
+            ((Autochecked) task).solvedTask();
+            countTasksDone +=1;
+            countTaskDoneAllStudents = +1;
         } else {
-            System.out.println("Все модули пройдены!");
+            boolean checkCode = false;
+            while (checkCode != true) {
+
+                if (mentor.checkCode(task) == true) {
+                    countTasksDone +=1;
+                    countTaskDoneAllStudents = +1;
+                    checkCode = true;
+
+                }
+            }
         }
-    }
-
-    public  void taskDone(boolean statusTask){
-
-        if(statusTask == true){
-            sumTaskDone +=1;
-        }
-
-    }
-
-
-    public static int getSumTaskDone(){
-
-        return sumTaskDone;
-
-
-    }
-
-
-
-    public static int getMaxModelesDone(){
-
-        return maxModulesStudents;
-
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFam() {
-        return fam;
-    }
-
-    public void setFam(String fam) {
-        this.fam = fam;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public boolean isStage() {
-        return stage;
-    }
-
-    public void setStage(boolean stage) {
-        this.stage = stage;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
     }
 
     public int getCountTasksDone() {
@@ -119,14 +76,27 @@ public class Student {
         this.countTasksDone = countTasksDone;
     }
 
-    public int getCountModulesDone() {
-        return countModulesDone;
+    public static int getCountTaskDoneAllStudents() {
+        return countTaskDoneAllStudents;
     }
 
-    public void setCountModulesDone(int countModulesDone) {
-        this.countModulesDone = countModulesDone;
-        if ( countModulesDone > maxModulesStudents ){
-            maxModulesStudents = countModulesDone;
-        }
+    public static void setCountTaskDoneAllStudents(int countTaskDoneAllStudents) {
+        Student.countTaskDoneAllStudents = countTaskDoneAllStudents;
+    }
+
+    public Mentor getMentor() {
+        return mentor;
+    }
+
+    public void setMentor(Mentor mentor) {
+        this.mentor = mentor;
+    }
+
+    public boolean isCheckTaskAllDone() {
+        return checkTaskAllDone;
+    }
+
+    public void setCheckTaskAllDone(boolean checkTaskAllDone) {
+        this.checkTaskAllDone = checkTaskAllDone;
     }
 }
