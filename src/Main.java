@@ -27,6 +27,7 @@ public class Main {
             }
         }
 
+        // random
         Random random = new Random();
         int min = 1;
         int max = 10;
