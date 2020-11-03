@@ -36,6 +36,7 @@ public class Main {
         System.out.println(randomTask);
         int i = 0;
 
+        // Перебираем студентов и даем им задания
         for (Student student: students) {
             student.solveTasks(randomTask,tasks);
         }
