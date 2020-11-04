@@ -7,14 +7,14 @@ public class Main {
         // Создаем менторов
         Mentor mentor1 = new Mentor("Иванов", "Игорь", 30, true);
         Mentor mentor2 = new Mentor("Петров", "Сергей", 25, false);
-        Mentor mentor3 = new Mentor("Сидоров", "Павео", 45, true);
+        Mentor mentor3 = new Mentor("Сидоров", "Павел", 45, true);
 
         // Массив студентов
         Student[] students = new Student[3];
         students[0] = new Student("Федоров", "Никита", 25, mentor1, false);
         students[1] = new Student("Алексеев", "Тимур", 30, mentor2, true);
         students[2] = new Student("Васечкин", "Семен", 56, mentor3, true);
-
+        students[3] = new Student("Дронов", "Вадим", 56, mentor2, true);
 
         // Создание Массива с заданиями
         String[][] options = {{"", ""}, {"", ""}, {"", ""}}; // Варианты заданий
